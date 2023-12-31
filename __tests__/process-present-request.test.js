@@ -1,13 +1,13 @@
 const processPresentRequest = require("../process-present-request");
 
 describe("processPresentRequest Function", () => {
-  test("test that type of return value is an object ", () => {
+  test("Returns an object ", () => {
     const input = "";
     const actualOutput = processPresentRequest(input);
     const expectedOutput = "object";
     expect(typeof actualOutput).toEqual(expectedOutput);
   });
-  test("if given an empty string, console error message", () => {
+  test("If given an empty string, console error message", () => {
     const consoleSpy = jest.spyOn(console, "error");
     const input = "";
     processPresentRequest(input);
@@ -17,7 +17,7 @@ describe("processPresentRequest Function", () => {
     );
     consoleSpy.mockRestore();
   });
-  test("returns an object with values set to undefined/presentTotal = 0, when given an empty string", () => {
+  test("Returns object with undefined values for an empty string", () => {
     const input = "";
     const actualOutput = processPresentRequest(input);
     const expectedOutput = {
@@ -59,24 +59,24 @@ describe("processPresentRequest Function", () => {
     );
     consoleSpy.mockRestore();
   });
-  test("updates the object with correct key/values for a valid letter format", () => {
+  test("Returns object with correct key/values for a valid letter format", () => {
     const input =
-      "Dear Santa, for Christmas I would like: Gameboy. From Charlie";
+      "Dear Mrs Santa, for Christmas I would like: Gameboy. From Charlie";
     const actualOutput = processPresentRequest(input);
     const expectedOutput = {
-      to: "Santa",
+      to: "Mrs Santa",
       from: "Charlie",
       presents: ["Gameboy"],
       presentsTotal: 1,
     };
     expect(actualOutput).toEqual(expectedOutput);
   });
-  test("updates the object correctly when given multiple presents", () => {
+  test("Updates the object correctly when given multiple presents", () => {
     const input =
-      "Dear Mrs Santa, for Christmas I would like: a decent nights sleep, new golf clubs, to win the lottery. From Charlie Tahsin";
+      "Dear Saint Nicholas, for Christmas I would like: a decent nights sleep, new golf clubs, to win the lottery. From Charlie Tahsin";
     const actualOutput = processPresentRequest(input);
     const expectedOutput = {
-      to: "Mrs Santa",
+      to: "Saint Nicholas",
       from: "Charlie Tahsin",
       presents: [
         "a decent nights sleep",
@@ -87,7 +87,7 @@ describe("processPresentRequest Function", () => {
     };
     expect(actualOutput).toEqual(expectedOutput);
   });
-  test("avoids duplicate presents in the array when given the same present multiple times", () => {
+  test("Removes duplicate presents in the array when given the same present multiple times", () => {
     const input =
       "Dear Mrs Santa, for Christmas I would like: Gameboy, golf clubs, PS5, Gameboy, PS5. From Charlie Tahsin";
     const actualOutput = processPresentRequest(input);

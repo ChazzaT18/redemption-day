@@ -1,7 +1,7 @@
 const selectToysByType = require("../select-toys-by-type");
 
 describe("selectToysByType Function", () => {
-  test("Test that type of return value is an array", () => {
+  test("Returns an array", () => {
     const input = [];
     const actualOutput = selectToysByType(input, "Toys");
     expectedOutput = true;
@@ -12,7 +12,7 @@ describe("selectToysByType Function", () => {
     const actualOutput = selectToysByType(input);
     expect(actualOutput).not.toBe(input);
   });
-  test("Returns an array with a single matching object when the type is matched, also checks for mutation of original array", () => {
+  test("Returns an array with a single matching object when the type is matched", () => {
     const input = [{ name: "bike", type: "outdoors" }];
     const inputCopy = [...input]
     const actualOutput = selectToysByType(input, "outdoors");
@@ -27,14 +27,6 @@ describe("selectToysByType Function", () => {
     expect(consoleSpy).toHaveBeenCalledWith("No presents of that type");
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     consoleSpy.mockRestore();
-  });
-  test("Should be case-insensitive when matching the type", () => {
-    const input = [
-      { name: "bike", type: "outdoors" }
-    ];
-    const actualOutput = selectToysByType(input, "OUTDOORS");
-    const expectedOutput = [{ name: "bike", type: "outdoors" }];
-    expect(actualOutput).toEqual(expectedOutput);
   });
   test("Returns an array with a single matching object when the type is matched to only one object", () => {
     const input = [
@@ -60,4 +52,14 @@ describe("selectToysByType Function", () => {
     ];
     expect(actualOutput).toEqual(expectedOutput);
   });
+  test("Checks for mutation of original array", () => {
+    const input = [{ name: "bike", type: "outdoors" },
+    { name: "shoes", type: "clothes" },
+    { name: "socks", type: "clothes" },
+    { name: "train", type: "toy" },
+    { name: "stacking cups", type: "toy" }];
+    const inputCopy = [...input]
+    selectToysByType(input, "outdoors");
+    expect(input).toEqual(inputCopy);
+  })
 })

@@ -10,7 +10,7 @@ function processPresentRequest(string) {
   } else if (
     !string.startsWith("Dear ") ||
     !string.includes(", for Christmas I would like: ") ||
-    !/From (.*?)$/.test(string)
+    !/From [^]*$/.test(string)
   ) {
     console.error(
       "Your letter is not in the right format, you're now on the naughty list"
